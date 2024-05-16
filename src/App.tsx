@@ -239,7 +239,9 @@ function App() {
                           }
                         />
                         <div className="checkbox_checkmark"></div>
-                        <div className="checkbox_body">{todo}</div>
+                        <div className="checkbox_body" title={todo}>
+                          {todo}
+                        </div>
                       </label>
                     </div>
                   );
@@ -255,21 +257,3 @@ function App() {
 }
 
 export default App;
-
-//  todoIds.map((todoId) => {
-//           const todo = todosById[todoId];
-
-//           return (
-//             <div className="todo_item" key={todoId}>
-//               <label className="checkbox_label">
-//                 <input
-//                   type="checkbox"
-//                   checked={todo.isCompleted}
-//                   onChange={() => handleMarkTodoAsCompleted(todo)}
-//                 />
-//                 <div className="checkbox_checkmark"></div>
-//                 <div className="checkbox_body">{todo.todo}</div>
-//               </label>
-//             </div>
-//           );
-//         })

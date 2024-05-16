@@ -1,5 +1,5 @@
 {
-  "name": "react-virtual-scroll",
+  "name": "indexed-db-todo-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
