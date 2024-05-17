@@ -93,7 +93,7 @@ function App() {
     const createdAtList: number[] = [];
     const randomTodoIds: string[] = [];
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10000; i++) {
       createdAtList.push(new Date().getTime() + Math.random() * 1000000);
     }
 
@@ -104,7 +104,7 @@ function App() {
       const todoId = nanoid();
       const todoItem = {
         id: todoId,
-        todo: 'Todo ' + (todoIds.length + idx),
+        todo: 'Todo ' + (todoIds.length + idx + 1),
         isCompleted: false,
         createdAt: createdAt,
       };
@@ -157,8 +157,13 @@ function App() {
 
   const initializeDB = async () => {
     try {
-      await initDB();
-    } catch (error) {}
+      const result = await initDB();
+      if (result) {
+        getTodos();
+      }
+    } catch (error: any) {
+      setErrorMsg(error.message || 'Failed to connect to DB');
+    }
   };
 
   const getTodos = async () => {
@@ -181,10 +186,6 @@ function App() {
   useEffect(() => {
     initializeDB();
 
-    setTimeout(() => {
-      getTodos();
-    }, 2000);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -205,13 +206,15 @@ function App() {
             disabled={isLoadingMultipleAdd}
             onClick={handleAddRandomTodos}
           >
-            {isLoadingMultipleAdd ? 'Adding...' : '+ 1000 random'}
+            {isLoadingMultipleAdd ? 'Adding...' : '+ 10000 random'}
           </button>
           <button onClick={handleAddNewTodo}>Add</button>
         </div>
       ) : null}
-      {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
       <div className="content">
+        {errorMsg ? (
+          <p style={{ color: 'red', marginTop: 0 }}>{errorMsg}</p>
+        ) : null}
         {isLoadingTodos ? (
           <p>Please wait... Loading todos!</p>
         ) : (
